@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex,nofollow">
+<title>HTML構成規則 | 株式会社プライサー コーディングルール</title>
+<link rel="stylesheet" href="css/common.css">
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script>
+$(function() {
+  $('#side').load('side.html');
+})
+</script>
+</head>
+<body>
+
+<header id="header">
+<h1>HTML構成規則</h1>
+<p>2017/07/19 現在</p>
+</header>
+
+<!--/ ===== main START ===== /-->
+<div id="main">
+
+<!-- 01 -->
+<section class="entry" id="01">
+<h2>基本ルール</h2>
+<p>特に指定がない限り、以下のフォーマットを使用してください。</p>
+<table class="center">
+<tr>
+  <td>UTF-8</td>
+  <td>BOM無し</td>
+  <td>CR+LF</td>
+</tr>
+</table>
+<p>基本的には、<a href="https://google.github.io/styleguide/htmlcssguide.html" target="_blank">Google HTML/CSS Style Guide</a> に沿って記述します。※一部除く</p>
+<ul>
+  <li>W3Cの規格に準拠した、正しいHTML文書を記述する。</li>
+  <li>コードは小文字で記述する。（alt属性など値が文字列の場合は除く）</li>
+  <li>指定がない限り、文章中の英数字は半角を使用する。</li>
+  <li>コードのインデント（字下げ）は、タブではなく<strong>半角スペース2つ分</strong>とする。</li>
+  <li>必要に応じてコメントを入れる、ブロック要素で改行を入れるなど、ソースを読みやすくしておく。</li>
+  <li>CSSでの再現が困難な場合を除き、レイアウトを目的としたtableコーディングは行わない。</li>
+  <li>記述ミスを防ぐために、<strong>タグの省略はしない</strong>。（終了タグなど）</li>
+  <li>CSS、JavaScript、画像、サイト内リンク等のパスは<strong>ルートパス</strong>で記述する。（制作時は相対パスでも可能）</li>
+</ul>
+<dl>
+  <dt>［参考］Google HTML/CSS Style Guideを全部日本語に訳してみた【HTML編】</dt>
+  <dd><a href="http://buchineko.website/google_styleguide_html/" target="_blank">http://buchineko.website/google_styleguide_html/</a></dd>
+</dl>
+</section>
+
+<!-- 02 -->
+<section class="entry" id="02">
+<h2>DOCTYPE宣言</h2>
+<p>HTML5での制作を基準とします。<br>過去に制作した案件はXHTMLでの制作が主流でしたので、更新作業がある場合は注意してください。</p>
+<h3>HTML5 記述例</h3>
+<p>過去のものと比べて、すっきりシンプルになっています。<br>新しいタグが追加され、以前に使われていた一部のタグは使用できなくなりました。</p>
+<pre>
+<code>
+&lt;!DOCTYPE html&gt;
+&lt;html lang="ja"&gt;
+&lt;head&gt;
+&lt;meta charset="utf-8"&gt;
+　︙
+</code>
+</pre>
+<h3>XHTML 1.0 Transitional 記述例</h3>
+<p>すべてのタグにおいて、閉じタグ「&lt;… /&gt;」が必須となっています。<br>HTML5から採用されたタグは使用できません。</p>
+<pre>
+<code>
+&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"&gt;
+&lt;html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja"&gt;
+&lt;head&gt;
+&lt;meta http-equiv="Content-Type" content="text/html; charset=utf-8" /&gt;
+&lt;meta http-equiv="Content-Style-Type" content="text/css" /&gt;
+&lt;meta http-equiv="Content-Script-Type" content="text/javascript" /&gt;
+　︙
+</code>
+</pre>
+</section>
+
+<!-- 03 -->
+<section class="entry" id="03">
+<h2>head要素</h2>
+<p>特別な指定がない限り、以下の順番で要素を記述していきます。<br>ただし、プログラムで動的に作られるソースコードは、以下の限りではありません。</p>
+<ol>
+  <li>文字コード、IE互換モード、viewportの指定</li>
+  <li>title要素</li>
+  <li>meta要素（description、keywords）</li>
+  <li>OGP設定</li>
+  <li>ファビコン設定</li>
+  <li>全ページ共通で読み込む要素</li>
+  <li>CSS要素</li>
+  <li>JavaScript要素</li>
+</ol>
+<h3>1. 文字コード、IE互換モード、viewportの指定</h3>
+<p>viewportはスマートフォン向けの設定です。状況に応じて設定してください。</p>
+<pre>
+<code>
+&lt;meta charset="utf-8"&gt;
+&lt;meta http-equiv="X-UA-Compatible" content="IE=edge"&gt;
+&lt;meta name="viewport" content="width=device-width, initial-scale=1"&gt;
+</code>
+</pre>
+<p>スマートフォン用の電話番号の自動リンク機能は、無効化しておく方が無難です。</p>
+<pre>
+<code>
+&lt;meta name="format-detection" content="telephone=no"&gt;
+</code>
+</pre>
+<h3>2. title要素</h3>
+<p>titleタグは「ページの主題」です。検索結果やブラウザのタイトルバーに表示される、<strong>SEO対策で最も重要</strong>な要素です。</p>
+<ul>
+  <li>検索エンジンが最重要視する要素。</li>
+  <li>検索結果には<strong>最大全角34文字程度</strong>が表示され、残りは省略される。（GoogleのWeb表示では30文字程度）</li>
+  <li>上位化した際のクリック率やコンバージョンにも大きな影響を与える。</li>
+</ul>
+<p>下階層ページで特に指定がない場合は、「ページタイトル（半角スペース） | （半角スペース）サイトタイトル」で文字列をつないでください。</p>
+<pre>
+<code>
+&lt;title&gt;ページタイトル | サイトタイトル&lt;/title&gt;
+</code>
+</pre>
+<h3>3. meta要素（description、keywords）</h3>
+<p>descriptionは検索エンジン向けの「ページの概要説明文」になります。<br>titleを補足できるような説明を行うことで、クリック率の向上、コンバージョン率に良い影響を与えることができます。</p>
+<ul>
+  <li>検索結果においてtitleのすぐ下に表示されるので、簡潔で読みやすい文章にする。</li>
+  <li>検索結果には<strong>最大全角120文字程度</strong>が表示され、残りは省略される。（スマホは50文字程度）</li>
+  <li>OGP設定していない場合は、descriptionの文章が使われる。</li>
+  <li>SEOキーワードをはじめの方に入れる。（順位向上そのものには大きく影響はしない）</li>
+  <li><strong>すべてのページで違う文章</strong>にするべき。（重複するくらいなら記述しない方がよい）</li>
+</ul>
+<pre>
+<code>
+&lt;meta name="description" content="ページ概要"&gt;
+</code>
+</pre>
+<p>なお、以前はkeywordsの設定がSEO対策として有効とされていましたが、<strong>現在Googleにおいてその効果はなくなりました</strong>。<br>今後、SEOの評価基準の見直しも考えられますが、無理に設定するくらいなら記述しない方が無難です。</p>
+<ul>
+  <li>多すぎると過剰なアピールと捉えられペナルティの要因となる可能性もあるため、<strong>最大でも5個程度</strong>に収めたほうが良い。</li>
+  <li>keywordsにて書いたキーワードは本文中でも必ず使用していること。</li>
+  <li>削除することを推奨しているサイトもあるため、指定がない限りは設定不要とする。</li>
+</ul>
+<pre>
+<code>
+&lt;meta name="keywords" content="キーワード1,キーワード2,キーワード3"&gt;
+</code>
+</pre>
+<h3>4. OGP設定</h3>
+<p>OGPとはFacebookやTwitterなどのSNSでシェアされた際に、そのページのタイトル・URL・概要・アイキャッチ画像などを意図した通りに表示させる仕組みです。案件ごとに必要に応じて設定してください。</p>
+<pre>
+<code>
+&lt;meta property="og:title" content="ページタイトル | サイトタイトル"&gt;
+&lt;meta property="og:type" content="article"&gt;
+&lt;meta property="og:image" content="http://www.xxxxxx.com/img/xxxxxx.png"&gt;
+&lt;meta property="og:url" content="http://www.xxxxxx.com/xxxxxx/"&gt;
+&lt;meta property="og:site_name" content="サイトタイトル"&gt;
+&lt;meta property="og:description" content="ページ概要"&gt;
+</code>
+</pre>
+<h3>5. ファビコン設定</h3>
+<p>ファビコンはICO形式のファイルを「favicon.ico」というファイル名でウェブサーバーのルート直下に配置することでブラウザが自動的に読み込みます。<br>通常のPCサイトであれば、最低限 16×16、32×32、48×48 のマルチアイコンを制作してルート直下に配置しておきます。</p>
+<p>スマートフォン等、マルチデバイス対応を考慮して細かく設定していくと大変なことになりますが、その際は最低限、以下のように設定しておきます。（ルート直下に配置する場合）</p>
+<pre>
+<code>
+&lt;link rel="icon" href="/favicon.ico" type="image/vnd.microsoft.icon"&gt;
+&lt;link rel="shortcut icon" href="/favicon.ico" type="image/vnd.microsoft.icon"&gt;
+&lt;link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="152x152"&gt;
+</code>
+</pre>
+<dl>
+  <dt>［参考］faviconをマルチファビコンとapple-touch-iconの2枚で済ます！</dt>
+  <dd><a href="http://www.02320.net/apple-touch-icon_for_android/" target="_blank">http://www.02320.net/apple-touch-icon_for_android/</a></dd>
+  <dt>［参考］ファビコン作成 favicon.ico 無料で半透過マルチアイコンが作れます。</dt>
+  <dd><a href="https://ao-system.net/favicon/" target="_blank">https://ao-system.net/favicon/</a></dd>
+  <dt>［参考］様々なファビコンを一括生成。</dt>
+  <dd><a href="https://ao-system.net/favicongenerator/" target="_blank">https://ao-system.net/favicongenerator/</a></dd>
+</dl>
+<h3>6. 全ページ共通で読み込む要素</h3>
+<p>サイトの全ページに共通で読み込む要素は、まとめて記述してください。（「common.css」CDNに設置されたjQuery「common.js」など）</p>
+<ul>
+  <li>読み込むjQueryのバージョンは、使用するプラグインの対応状況によって変更する。（最新を使えばよい訳ではない）</li>
+  <li>全ページ共通の要素であれば「common.css」「common.js」に限定しない。</li>
+  <li>制作時は相対パス（../css/xxxxxx.css）指定でよいが、公開時は<strong>ルートパス（/css/xxxxxx.css）で指定</strong>する。</li>
+  <li>外部サイトからのリンクパスは<strong>プロトコル「http:」「https:」を省略</strong>して記述する。</li>
+  <li>JavaScriptは、特別理由がない限りはhead内に記述する。</li>
+</ul>
+<pre>
+<code>
+&lt;!-- common --&gt;
+&lt;link rel="stylesheet" href="/css/common.css"&gt;
+&lt;script src="//ajax.googleapis.com/ajax/libs/jquery/バージョン/jquery.min.js"&gt;&lt;/script&gt;
+&lt;script src="/js/common.js"&gt;&lt;/script&gt;
+</code>
+</pre>
+<h3>7. CSS要素</h3>
+<p>デザイン要素であるCSSは、HTML上に直接記述せず、外部CSSから読み込むようにしてください。<br>やむを得ずHTML上に記述する場合も、タグに直書きはせず、ここに記述してください。</p>
+<pre>
+<code>
+&lt;!-- css --&gt;
+&lt;link rel="stylesheet" href="/css/xxxxxx.css"&gt;
+&lt;style type="text/css"&gt;
+.hoge {
+  margin: 10px;
+}
+&lt;/style&gt;
+</code>
+</pre>
+<h3>8. JavaScript要素</h3>
+<p>JavaScript要素は、可能な限り外部ファイル化してください。<br>ページのレンダリング速度を考えて、bodyタグの最後に記述した方がよいとされていますが、実際のところ大差はないようです。<br>JavaScriptを最後にすることで動作が安定せず、逆効果となってしまうこともありますので、基本的にはhead内へ記述してください。<br>ただし、著しく表示速度が改善される場合や、実行のタイミングを制御したい場合などの都合に応じて、記述場所は変更してもかまいません。</p>
+<pre>
+<code>
+&lt;!-- js --&gt;
+&lt;script src="/js/xxxxxx.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+$(function() {
+  $('.hoge').hide();
+});
+&lt;/script&gt;
+</code>
+</pre>
+<h3>head要素まとめ</h3>
+<p>まとめると、HTMLのベースは以下のようになります。<br>以下のタグはあくまで一例で、案件によって設定は変わりますので、臨機応変に対応してください。</p>
+<pre>
+<code>
+&lt;!DOCTYPE html&gt;
+&lt;html lang="ja"&gt;
+&lt;head&gt;
+&lt;meta charset="utf-8"&gt;
+&lt;meta http-equiv="X-UA-Compatible" content="IE=edge"&gt;
+&lt;meta name="viewport" content="width=device-width, initial-scale=1"&gt;
+&lt;meta name="format-detection" content="telephone=no"&gt;
+
+&lt;title&gt;ページタイトル | サイトタイトル&lt;/title&gt;
+&lt;meta name="description" content="ページ概要"&gt;
+&lt;meta property="og:title" content="ページタイトル | サイトタイトル"&gt;
+&lt;meta property="og:type" content="article"&gt;
+&lt;meta property="og:image" content="http://www.xxxxxx.com/img/xxxxxx.png"&gt;
+&lt;meta property="og:url" content="http://www.xxxxxx.com/xxxxxx/"&gt;
+&lt;meta property="og:site_name" content="サイトタイトル"&gt;
+&lt;meta property="og:description" content="ページ概要"&gt;
+
+&lt;!-- common --&gt;
+&lt;link rel="stylesheet" href="/css/common.css"&gt;
+&lt;script src="//ajax.googleapis.com/ajax/libs/jquery/バージョン/jquery.min.js"&gt;&lt;/script&gt;
+&lt;script src="/js/common.js"&gt;&lt;/script&gt;
+
+&lt;!-- css --&gt;
+&lt;link rel="stylesheet" href="/css/xxxxxx.css"&gt;
+
+&lt;!-- js --&gt;
+&lt;script src="/js/xxxxxx.js"&gt;&lt;/script&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+コンテンツ内容
+&lt;/body&gt;
+
+&lt;/html&gt;
+</code>
+</pre>
+<h3>補足</h3>
+<p>状況に応じて設定するべきmeta要素として、以下のようなものがあります。</p>
+<dl>
+  <dt>canonical属性</dt>
+  <dd>異なるURLを正規化する際に使用できる。<br>似た・同じ内容のページを1つに統一することができ、Googleからの評価を1つのページに集約できる。</dd>
+  <dt>alternate属性</dt>
+  <dd>URLは違うが、内容が同じスマホ・モバイルページがある場合。<br>検索エンジンの「内容が同じなのにURLが違う＝マイナス評価」ということを防げる。</dd>
+</dl>
+</section>
+
+<!-- 04 -->
+<section class="entry" id="04">
+<h2>アウトライン構造</h2>
+<p>アウトラインは、HTML文書の構造を明示するための仕組みです。<br><strong>HTML5の仕様では、セクショニング・コンテンツを使用してアウトラインを示すことが推奨</strong>されています。<br>正しい文書構造で記述することで、検索エンジンがページ構造を理解しやすくなります。</p>
+<ul>
+  <li>body要素はアウトラインを形成する。</li>
+  <li>header、footer、main要素はアウトラインを形成しない。</li>
+  <li>レイアウトのためのコンテナ要素として使うものではない。（レイアウトが目的の場合はdivを使う）</li>
+  <li>セクショニング・コンテンツには見出し要素が必要だが、navとasideはなくてもよい。<br></li>
+</ul>
+<p class="note">※main要素はIEで認識されない状況もあるようです。使用する際は注意してください。</p>
+<h3>セクショニング・コンテンツ</h3>
+<p>HTML5からは文書構造を正しく理解するために、構造化の為のセクショニングタグが追加されました。<br>その中でもセクション（文書構造）を定義しているものは次の4つです。</p>
+<table>
+<tr>
+  <th width="120">section</th>
+  <td>HTMLドキュメント内の一般的なセクション（章や節）を示す要素。<br><strong>見出し要素の使用が強く推奨</strong>されている。</td>
+</tr>
+<tr>
+  <th>article</th>
+  <td>サイト内で自己完結しており、それ自体で独立したコンテンツとして成り立つもの。<br>内容だけ抜き出しても違和感がない、ブログ記事やニュース記事など。</td>
+</tr>
+<tr>
+  <th>aside</th>
+  <td>コンテンツ内における余談・補足情報のセクションであることを示す要素。<br>広告、参考リンク、レコメンドなど仮に無くなってもコンテンツに影響がないもの。</td>
+</tr>
+<tr>
+  <th>nav</th>
+  <td>サイトにとって<strong>主要なナビゲーション</strong>であることを示す要素。<br>グローバルメニュー、サイドメニュー、パンくずリストなどが該当する。</td>
+</tr>
+</table>
+<dl>
+  <dt>［参考］HTML5でのコーディング - セクションやらアウトラインやらのコンテンツ・モデル周辺のお話</dt>
+  <dd><a href="https://yukiyuriweb.com/contents-model-in-html5/" target="_blank">https://yukiyuriweb.com/contents-model-in-html5/</a></dd>
+  <dt>［参考］HTML5文書のアウトラインを確認できるサービス「HTML5 Outliner」</dt>
+  <dd><a href="https://gsnedders.html5.org/outliner/" target="_blank">https://gsnedders.html5.org/outliner/</a></dd>
+  <dd class="note">※「Untitled Section」と表示されたら文書構造が正しく出来ていません。ただし、navとasideの部分は無視しても大丈夫です。</dd>
+</dl>
+<h3>セクショニング・ルート</h3>
+<p>セクショニング・ルートは、独自のアウトラインを形成する要素です。<br>ただし、セクショニング・コンテンツと異なり、文書全体のアウトラインには影響を与えません。<br>body、blockquote、details、fieldset、figure、td要素が該当します。</p>
+<h3>暗黙的セクション</h3>
+<p>HTML5においても見出し要素を使用すると、アウトラインが形成されます。<br>このアウトラインは<strong>「暗黙的アウトライン」</strong>と呼ばれ、以下のように定義されています。<br>ちなみに、「セクショニング・コンテンツ」「セクショニング・ルート」から形成されるものが<strong>「明示的アウトライン」</strong>です。</p>
+<ul>
+  <li>見出し要素の記述があれば、アウトラインを生成するセクションの始まりとする。</li>
+  <li>セクション内の最初の見出し要素が、そのセクションの見出しになる。</li>
+  <li>現セクションの見出しレベルより小さければ、下部のセクションになる。</li>
+  <li>現セクションの見出しレベルより大きいか同じであれば、新しいセクションを開始する。</li>
+  <li>見出し要素の番号（レベル）は、明示的セクションを超えて意味を成さない。</li>
+  <li>暗黙的セクションは、明示的セクションを超えられない。</li>
+</ul>
+<p>文書構造さえ正しければ、見出し要素の使用順（h1、h2、h3 …）に制限がなくなります。<br>しかし、実務では混乱を招きかねないので、理由がない限りは順番通り（h1、h2、h3 …）使用する方が無難です。</p>
+<dl>
+  <dt>［参考］HTML5のアウトラインを極めるための6つのルール</dt>
+  <dd><a href="http://shibe97.tumblr.com/post/121266132377/html5のアウトラインを極めるための6つのルール" target="_blank">http://shibe97.tumblr.com/post/121266132377/html5のアウトラインを極めるための6つのルール</a></dd>
+  <dt>［参考］HTML5のセクショニングとアウトラインアルゴリズムの再確認</dt>
+  <dd><a href="http://foreignkey.toyao.net/archives/1503" target="_blank">http://foreignkey.toyao.net/archives/1503</a></dd>
+</dl>
+<h3>HTML5 記述例</h3>
+<p>HTML5のアウトラインを意識した簡単なテンプレートは以下のようになります。<br>以下のタグはあくまで一例で、案件によって設定は変わりますので、臨機応変に対応してください。</p>
+<pre>
+<code>
+&lt;body&gt;
+
+&lt;!--/ ===== header START ===== /--&gt;
+&lt;header&gt;
+  &lt;h1&gt;1-1 見出し&lt;/h1&gt;
+  &lt;nav&gt;
+    グローバルメニュー
+  &lt;/nav&gt;
+&lt;/header&gt;
+&lt;!--/ ===== header  END  ===== /--&gt;
+
+&lt;!--/ ===== main START ===== /--&gt;
+&lt;main&gt;
+
+&lt;article&gt;
+  &lt;h2&gt;2-1 見出し&lt;/h2&gt;
+  ブログ記事など単独で成り立つコンテンツ
+&lt;/article&gt;
+
+&lt;section&gt;
+  &lt;h2&gt;2-2 見出し&lt;/h2&gt;
+  &lt;section&gt;
+    &lt;h3&gt;3-2 見出し&lt;/h3&gt;
+    コンテンツ
+  &lt;/section&gt;
+&lt;/section&gt;
+
+&lt;/main&gt;
+&lt;!--/ ===== main  END  ===== /--&gt;
+
+&lt;!--/ ===== footer START ===== /--&gt;
+&lt;footer&gt;
+  &lt;p&gt;&lt;small&gt;コピーライト&lt;/small&gt;&lt;/p&gt;
+&lt;/footer&gt;
+&lt;!--/ ===== footer  END  ===== /--&gt;
+
+&lt;/body&gt;
+</code>
+</pre>
+<h3>XHTML 1.0 Transitional 記述例</h3>
+<p>補足ですが、XHTML 1.0 Transitional にはセクショニングタグはありません。div要素を使用します。</p>
+<pre>
+<code>
+&lt;body&gt;
+
+&lt;!--/ ===== header START ===== /--&gt;
+&lt;div id="header"&gt;
+  &lt;h1&gt;1-1 見出し&lt;/h1&gt;
+  グローバルメニュー
+&lt;/div&gt;
+&lt;!--/ ===== header  END  ===== /--&gt;
+
+&lt;!--/ ===== main START ===== /--&gt;
+&lt;div id="main"&gt;
+
+&lt;div class="article"&gt;
+  &lt;h2&gt;2-1 見出し&lt;/h2&gt;
+  コンテンツ
+&lt;/div&gt;
+
+&lt;div class="section"&gt;
+  &lt;h2&gt;2-2 見出し&lt;/h2&gt;
+  &lt;h3&gt;3-2 見出し&lt;/h3&gt;
+  コンテンツ
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;!--/ ===== main  END  ===== /--&gt;
+
+&lt;!--/ ===== footer START ===== /--&gt;
+&lt;div id="footer"&gt;
+  &lt;p&gt;コピーライト&lt;/p&gt;
+&lt;/div&gt;
+&lt;!--/ ===== footer  END  ===== /--&gt;
+
+&lt;/body&gt;
+</code>
+</pre>
+</section>
+
+</div>
+<!--/ ===== main  END  ===== /-->
+
+<div id="side">
+</div>
+
+</body>
+</html>

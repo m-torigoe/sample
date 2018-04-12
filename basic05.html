@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex,nofollow">
+<title>納品前の確認 | 株式会社プライサー コーディングルール</title>
+<link rel="stylesheet" href="css/common.css">
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script>
+$(function() {
+  $('#side').load('side.html');
+})
+</script>
+</head>
+<body>
+
+<header id="header">
+<h1>納品前の確認</h1>
+<p>2017/07/19 現在</p>
+</header>
+
+<!--/ ===== main START ===== /-->
+<div id="main">
+
+<!-- 01 -->
+<section class="entry" id="01">
+<h2>推奨環境</h2>
+<p>OS・ブラウザはどのバージョンから対応するか、必ず確認してから制作に取り掛かってください。<br>※クライアントからの特別な指定がない限りは、古いブラウザ（特にIE）は切り捨てます。</p>
+<h3>OS</h3>
+<ul>
+  <li>Microsoft Windows Vista/7/8/10</li>
+  <li>Macintosh OS X</li>
+</ul>
+<h3>対応ブラウザ</h3>
+<dl>
+  <dt>Windows</dt>
+  <dd>Internet Explorer 11</dd>
+  <dd>Microsoft Edge 最新版</dd>
+  <dd>Google Chrome 最新版</dd>
+  <dd>Firefox 最新版</dd>
+  <dt>Macintosh</dt>
+  <dd>Safari 5.x以降</dd>
+  <dd>Google Chrome 最新版</dd>
+  <dd>Firefox 最新版</dd>
+</dl>
+<h3>スクリーン</h3>
+<ul>
+  <li>デスクトップ：画面解像度 1280×1024px 以上</li>
+  <li>タブレット：画面解像度 640×960px 以上</li>
+</ul>
+<h3>色深度</h3>
+<ul>
+  <li>16bit以上</li>
+  <li>液晶モニタの視認性に対応</li>
+  <li>モノクロプリンタでの再現性に対応</li>
+</ul>
+</section>
+
+<!-- 02 -->
+<section class="entry" id="02">
+<h2>スマートフォン推奨環境</h2>
+<p>できるだけクライアントの使用する端末で動作を確認してください。</p>
+<h3>OS</h3>
+<ul>
+  <li>iOS 8.x以降</li>
+  <li>Android 4.0以降</li>
+</ul>
+<h3>対応ブラウザ</h3>
+<dl>
+  <dt>iOS</dt>
+  <dd>Safari</dd>
+  <dt>Android</dt>
+  <dd>標準ブラウザ</dd>
+</dl>
+<h3>スクリーン</h3>
+<ul>
+  <li>スマートフォン：画面解像度 320×568px 以上</li>
+  <li>規格は、iPhone6の画面解像度 375×667px または、iPhoneSEの 320×568px を基準とし、原則Retinaディスプレイに対応する。</li>
+</ul>
+<h3>色深度</h3>
+<ul>
+  <li>16bit以上</li>
+  <li>晴天の空の下でもはっきり読めるように</li>
+</ul>
+<dl>
+  <dt>［参考］HTML5で実現できる！環境光に合わせたレスポンシブなUI</dt>
+  <dd><a href="https://html5experts.jp/girlie_mac/4558/" target="_blank">https://html5experts.jp/girlie_mac/4558/</a></dd>
+</dl>
+</section>
+
+<!-- 03 -->
+<section class="entry" id="03">
+<h2>不要ファイルの削除</h2>
+<p>サーバに格納されているファイルは、原則として全て公開されることになるため、不要なファイルは削除するようにしてください。</p>
+<h3>本番公開時（納品時）削除するファイル</h3>
+<ul>
+  <li>Thumbs.db（Windowsのみ、PC側で作らない設定にする）</li>
+  <li>_notes（Dreamweaverで作らない設定にする）</li>
+  <li>.DS_Store および「._（ドットアンダースコア）」から始まるファイル名のデータ</li>
+  <li>.htaccess、.htpasswd を除く「.（ドット）」から始まるファイル、フォルダ</li>
+  <li>ソース上の不要なコメントアウト（特にユーザーに見せてはいけないもの）</li>
+  <li>その他、制作時のテスト用素材など</li>
+</ul>
+</section>
+
+<!-- 04 -->
+<section class="entry" id="04">
+<h2>確認事項</h2>
+<p>以下のような項目を確認の上で納品してください。</p>
+<ul>
+  <li>対応ブラウザでレイアウト崩れがないか。</li>
+  <li>文字間違いがないか、文法的におかしい部分はないか。</li>
+  <li>著作権的に使用してはいけない画像等を使っていないか。</li>
+  <li>ダミーテキスト、ダミー画像が残っていないか。</li>
+  <li>CSS、JavaScript、画像、サイト内リンク等のパスはルートパスになっているか。</li>
+  <li>外部サイトへのリンクは、プロトコル「http:」「https:」を省略しているか。</li>
+  <li>不要なファイルが残っていないか。</li>
+  <li>見られてはいけないコメントアウトが見える状態になっていないか。</li>
+  <li>不必要（過度）なアニメーション、JavaScriptを使っていないか。</li>
+</ul>
+</section>
+
+</div>
+<!--/ ===== main  END  ===== /-->
+
+<div id="side">
+</div>
+
+</body>
+</html>

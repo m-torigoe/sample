@@ -1,0 +1,960 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex,nofollow">
+<title>CSS構成規則 | 株式会社プライサー コーディングルール</title>
+<link rel="stylesheet" href="css/common.css">
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script>
+$(function() {
+  $('#side').load('side.html');
+})
+</script>
+</head>
+<body>
+
+<header id="header">
+<h1>CSS構成規則</h1>
+<p>2017/07/19 現在</p>
+</header>
+
+<!--/ ===== main START ===== /-->
+<div id="main">
+
+<!-- 01 -->
+<section class="entry" id="01">
+<h2>基本ルール</h2>
+<p>特に指定がない限り、以下のフォーマットを使用してください。</p>
+<table class="center">
+<tr>
+  <td>UTF-8</td>
+  <td>BOM無し</td>
+  <td>CR+LF</td>
+</tr>
+</table>
+<p>基本的には、<a href="https://google.github.io/styleguide/htmlcssguide.html" target="_blank">Google HTML/CSS Style Guide</a> に沿って記述します。※一部除く</p>
+<ul>
+  <li><strong>スタイルをHTMLに直接記述する事は原則禁止。</strong>外部CSSから読み込む。</li>
+  <li>余白をとる目的でHTMLにスペースを記述しない。CSSのmargin、paddingなどでスタイリングする。</li>
+  <li>半角英数字（基本的に小文字）を使用し、必ずアルファベットから開始する。</li>
+  <li>記号は「 -（ハイフン）」「 _（アンダースコア）」のみ使用する。</li>
+  <li>コードのインデント（字下げ）は、タブではなく<strong>半角スペース2つ分</strong>とする。</li>
+  <li><strong>カラーコードは小文字</strong>で記述する。</li>
+  <li>ユニバーサルセレクタ（ ∗ ）は処理速度が遅くなるのでなるべく使わない。</li>
+  <li>再利用性を考えて記述し、余計なタイプセレクタは使わない。</li>
+  <li>子孫セレクタは処理速度が遅くなるので多用しない。</li>
+  <li>「!important」を付けたスタイルはCSSの管理が難しくなる場合があるため、なるべく使用を避ける。</li>
+</ul>
+<p>外部CSSの<strong>1行目</strong>には、文字化けを防ぐために文字コードを記述しましょう。</p>
+<pre>
+<code>
+@charset "utf-8";
+</code>
+</pre>
+<dl>
+  <dt>［参考］Google HTML/CSS Style Guideを全部日本語に訳してみた【CSS編】</dt>
+  <dd><a href="http://buchineko.website/google_styleguide_css/" target="_blank">http://buchineko.website/google_styleguide_css/</a></dd>
+  <dt>［参考］パフォーマンスと効率を考慮したCSSの設定方法 10項目</dt>
+  <dd><a href="http://xn--lcki7of.jp/472/" target="_blank">http://カラクリ.jp/472/</a></dd>
+</dl>
+<h3>CSSファイル構造</h3>
+<p>外部CSSはひとつにまとめた方が読み込みが早いのですが、記述量が増えると管理しづらくなってきます。<br>そこで、全ページ共通で読み込む「common.css」と、単独のページでしか使用しないCSS（例：top.css）といったように分割することは可能とします。<br>パーツごとに細かく（例：header.css、footer.css）分割しすぎると、読み込みが遅くなるので避けましょう。</p>
+<p class="note">※Sass等を使えば@importでの管理も可能になりますが、そこまで必要性を感じないため導入は見送ります。</p>
+<table>
+<tr>
+  <td>common.css</td>
+  <td>リセット、ヘッダー、フッターなど全ページ共通で使うレイアウト</td>
+</tr>
+<tr>
+  <td>top.css</td>
+  <td>トップページしか使用しないレイアウト（必要に応じて）</td>
+</tr>
+<tr>
+  <td>style.css</td>
+  <td>その他のレイアウト（必要に応じて）</td>
+</tr>
+</table>
+<ul>
+  <li>外部CSSはひとつにまとめた方が読み込みが早い。</li>
+  <li>外部CSSは細かく分割しすぎない。</li>
+  <li>@importを利用して複数のCSSをひとつにまとめて読み込む方法は、原則禁止。</li>
+</ul>
+<dl>
+  <dt>［参考］【Sassで解決】CSSの@importはどれだけ悪影響なのか自分で試してみる</dt>
+  <dd><a href="http://dev.classmethod.jp/ria/html5/css-import-no-parallel-load-sass/" target="_blank">http://dev.classmethod.jp/ria/html5/css-import-no-parallel-load-sass/</a></dd>
+</dl>
+<h3>スタイルの優先順位</h3>
+<p>基本的に、先に書いたもののスタイルを引き継ぎながら、後に書いたものに上書きされます。</p>
+<pre>
+<code>
+p {
+  color: red;
+  font-size: 16px;
+}
+p { color: green; }　※文字サイズは維持しつつ、文字色は上書きされる
+</code>
+</pre>
+<p>他にも、以下のような指定方法で詳細度（優先度）が決定され、最終的に維持されたスタイルがブラウザ上で表示されます。（他の要因もあります）</p>
+<table>
+<tr>
+  <th class="center">優先度</th>
+  <th>指定方法</th>
+  <th>例</th>
+</tr>
+<tr>
+  <td class="center">1</td>
+  <td>!important　<strong>※なるべく使わない</strong></td>
+  <td>p { font-size: 16px !important; }</td>
+</tr>
+<tr>
+  <td class="center">2</td>
+  <td>インライン記述（style属性）　<strong>※使わない</strong></td>
+  <td>&lt;p style="font-size:16px;"&gt;</td>
+</tr>
+<tr>
+  <td class="center">3</td>
+  <td>idセレクタ</td>
+  <td>#hoge</td>
+</tr>
+<tr>
+  <td class="center">4</td>
+  <td>属性セレクタ ／ classセレクタ ／ 擬似クラス</td>
+  <td>p[title] ／ .hoge ／ a:hover</td>
+</tr>
+<tr>
+  <td class="center">5</td>
+  <td>要素セレクタ ／ 擬似要素</td>
+  <td>div、p、spanなどの要素 ／ a::after</td>
+</tr>
+<tr>
+  <td class="center">6</td>
+  <td>ユニバーサルセレクタ　<strong>※なるべく使わない</strong></td>
+  <td>∗</td>
+</tr>
+</table>
+<p>「!important」を付けたスタイルは強制的に詳細度を上げることができ、後に他のスタイルを記述しても上書きされない特徴を持っています。しかしCSSの破綻の可能性が高くなるため、基本的には使用せず、スタイルの優先レベルを考えて正しく指定してください。</p>
+<dl>
+  <dt>［参考］!importantはもう使わない！CSSの優先順位をおさらいしよう</dt>
+  <dd><a href="http://creator.aainc.co.jp/archives/4947" target="_blank">http://creator.aainc.co.jp/archives/4947</a></dd>
+</dl>
+</section>
+
+<!-- 02 -->
+<section class="entry" id="02">
+<h2>見出しの記述</h2>
+<p>CSSを見やすくするために、コメントを活用して見出しを付けてください。</p>
+<pre>
+<code>
+@charset "utf-8";
+
+/* ============================================
+
+   共通 - common.css　※CSS自体の見出し         */
+
+/* --------------------------------------------
+   default　※大見出し
+----------------------------------------------- */
+
+/* -----[ common ]----- */　※中見出し
+
+html {
+  font-size: 62.5%;
+}
+
+/* hoge */　※小見出し
+.hoge {
+  margin: 0;
+}
+</code>
+</pre>
+</section>
+
+<!-- 03 -->
+<section class="entry" id="03">
+<h2>リセットCSS</h2>
+<p>IE・Chrome・FireFox・safariなど、Webサイトを見るためのブラウザはたくさんあります。<br>各ブラウザには標準のCSS（初期スタイル）があるため、そのままの状態では表示が微妙に変わってきます。<br>この標準のCSSは、サイトを制作していく際に邪魔になってしまうこともあるため、標準のCSSによる設定を一度リセットして、制作者が自由にCSSを書いていこうというのが「リセットCSS」です。</p>
+<h3>リセットCSS サンプル</h3>
+<p>以下はあくまでサンプルです。<br>制作者の好みもあると思いますので、開発しやすい設定をしてください。</p>
+<pre>
+<code>
+/* -----[ reset ]----- */
+
+html, body, div, span,
+article, section, nav, header, footer, main, aside,
+h1, h2, h3, h4, h5, h6,
+form, fieldset, legend, label,
+dl, dt, dd, ol, ul, li, p,
+table, caption, tbody, thead, tfoot, tr, th, td,
+a, strong, em, mark, b, small, i, img,
+object, figure, figcaption, canvas, audio, video, iframe {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  font-size: 100%;
+  vertical-align: baseline;
+  outline: 0;
+}
+article, section, nav, header, footer, main, aside,
+figure, figcaption {
+  display: block;
+}
+html, body, div, span,
+article, section, nav, header, footer, main, aside {
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+</code>
+</pre>
+</section>
+
+<!-- 04 -->
+<section class="entry" id="04">
+<h2>セレクタの命名規則</h2>
+<p>CSSの命名規則には色々な設計思想（OOCSS、BEM、SMACSS、FLOCSS、RSCSSなど）がありますが、その考え方はすべて「分かりやすく管理する」という目的のもとに決められています。<br>誰が見てもセレクタ名（id・class名）を見ればどのパーツの記述か察しが付くような、簡潔な名前にしましょう。</p>
+<p class="note">※上記のような、代表的な設計思想はありますが、独自のルールを定めています。概念は同じです。</p>
+<ul>
+  <li>セレクタ名（id・class名）は、意味のある一般的な名前（一般的な略称）を使う。</li>
+  <li>セレクタ名は、長すぎない簡潔なものにする。ただし、極端に省略しない。</li>
+  <li>セレクタ名の連結には<strong>「 -（ハイフン）」</strong>を使用する。※Google推奨</li>
+  <li>キャメルケースは基本的に使用しない。</li>
+  <li>カスタマイズ性を考えて、<strong>基本的にはclass属性</strong>でスタイルを設定する。</li>
+  <li>ただし、共通レイアウト（例：ヘッダー、フッター）や、サイトを通して1度しか使われないようなもの（例：トップページのビジュアル）は、id属性を使用してよい。</li>
+  <li>セレクタ名はデザインから決めるのではなく「何処で」「何を表現」するのかを端的な名前で表す。</li>
+</ul>
+<h3>命名方法</h3>
+<p>基本的には以下の中から数字順に、<strong>［1］-［2］</strong>や、<strong>［2］-［3］-［4］</strong>という感じで、最大3単語までを接続して命名します。<br>または、<strong>［1］＞［2］-［3］-［4］</strong>という感じで、入れ子の形で使用します。<br>※以下の名称はあくまでよく使用する名称例です。コンテンツにふさわしい単語で命名してください。</p>
+<h3>［0］共通レイアウト</h3>
+<p>サイト全体のベースとなるレイアウトで、基本的には<strong>id属性での指定を推奨</strong>とします。</p>
+<table class="frame">
+<tr>
+  <th>ヘッダー</th>
+  <td>header</td>
+  <th>フッター</th>
+  <td>footer</td>
+</tr>
+<tr>
+  <th>ページ全体</th>
+  <td>wrapper</td>
+  <th>コンテンツ全体</th>
+  <td>container</td>
+</tr>
+<tr>
+  <th>メインコンテンツ</th>
+  <td>main</td>
+  <th>サイドコンテンツ</th>
+  <td>side</td>
+</tr>
+</table>
+<h3>［1］コンテンツ名</h3>
+<p>ページ単位、またはコンテンツ大枠のレイアウトとして分かりやすい名称を指定します。<br>必須ではありませんが、管理性を考えて指定してください。※以下はよくある例</p>
+<table class="frame">
+<tr>
+  <th>お知らせ</th>
+  <td>news</td>
+  <th>～について</th>
+  <td>about</td>
+</tr>
+<tr>
+  <th>サービス</th>
+  <td>service</td>
+  <th>製品</th>
+  <td>product</td>
+</tr>
+<tr>
+  <th>イベント</th>
+  <td>event</td>
+  <th>店舗</th>
+  <td>shop</td>
+</tr>
+<tr>
+  <th>会社概要</th>
+  <td>company</td>
+  <th>歴史</th>
+  <td>history</td>
+</tr>
+<tr>
+  <th>アクセス</th>
+  <td>access</td>
+  <th>ガイド</th>
+  <td>guide</td>
+</tr>
+<tr>
+  <th>よくある質問</th>
+  <td>faq</td>
+  <th>お問い合わせ</th>
+  <td>contact</td>
+</tr>
+<tr>
+  <th>個人情報</th>
+  <td>privacy</td>
+  <th>サイトマップ</th>
+  <td>sitemap</td>
+</tr>
+</table>
+<h3>［+］レイアウト補助</h3>
+<p>大枠ではレイアウトが再現できない場合の補助的な要素として、入れ子または「 -（ハイフン）」で接続して使用します。<br><strong>単独では使用しません。</strong></p>
+<table class="frame">
+<tr>
+  <th>内側</th>
+  <td>inner</td>
+  <th>外側</th>
+  <td>outer</td>
+</tr>
+<tr>
+  <th>上部</th>
+  <td>head</td>
+  <th>下部</th>
+  <td>foot</td>
+</tr>
+<tr>
+  <th>主要部分</th>
+  <td>body</td>
+  <th>サブコンテンツ</th>
+  <td>sub</td>
+</tr>
+<tr>
+  <th>節・区分</th>
+  <td>section</td>
+  <th>記事</th>
+  <td>article</td>
+</tr>
+</table>
+<h3>［2］ブロック</h3>
+<p>おおまかなブロックの種類を指定します。基本的に入れ子または「 -（ハイフン）」で接続して使用します。</p>
+<table class="frame">
+<tr>
+  <th>ナビゲーション</th>
+  <td>nav</td>
+  <th>タブ</th>
+  <td>tab</td>
+</tr>
+<tr>
+  <th>グリッドレイアウト</th>
+  <td>grid</td>
+  <th>一覧</th>
+  <td>list</td>
+</tr>
+<tr>
+  <th>カード型一覧</th>
+  <td>card</td>
+  <th>タイル型一覧</th>
+  <td>tile</td>
+</tr>
+<tr>
+  <th>縦列</th>
+  <td>col</td>
+  <th>箱</th>
+  <td>box</td>
+</tr>
+<tr>
+  <th>範囲</th>
+  <td>area</td>
+  <th>ユニット</th>
+  <td>unit</td>
+</tr>
+<tr>
+  <th>詳細</th>
+  <td>detail</td>
+  <th>項目</th>
+  <td>item</td>
+</tr>
+<tr>
+  <th>フォーム</th>
+  <td>form</td>
+  <th>検索</th>
+  <td>search</td>
+</tr>
+</table>
+<h3>［3］種類</h3>
+<p>小さな要素を一目で見分けるために、接頭辞・接尾辞の意味合いで使用します。基本的に「 -（ハイフン）」で接続して使用します。<br><strong>単独では使用しません。</strong></p>
+<table class="frame">
+<tr>
+  <th>アイコン</th>
+  <td>ico</td>
+  <th>ボタン</th>
+  <td>btn</td>
+</tr>
+<tr>
+  <th>タイトル</th>
+  <td>ttl</td>
+  <th>カテゴリ</th>
+  <td>cat</td>
+</tr>
+<tr>
+  <th>テキスト</th>
+  <td>txt</td>
+  <th>イメージ</th>
+  <td>img</td>
+</tr>
+</table>
+<h3>［4］名称</h3>
+<p>具体的な要素を示す単語を指定してください。一般的ならば略称でも可能とします。<br>重複使用する可能性がない場合は、単独での使用も可能とします。</p>
+<table class="frame">
+<tr>
+  <th>ページタイトル</th>
+  <td>headline</td>
+  <th>コピーライト</th>
+  <td>copyright</td>
+</tr>
+<tr>
+  <th>ロゴ</th>
+  <td>logo</td>
+  <th>パンくず</th>
+  <td>breadcrumb</td>
+</tr>
+<tr>
+  <th>メニュー</th>
+  <td>menu</td>
+  <th>リード文</th>
+  <td>lead</td>
+</tr>
+<tr>
+  <th>バナー</th>
+  <td>banner</td>
+  <th>リンク</th>
+  <td>link</td>
+</tr>
+<tr>
+  <th>サムネイル</th>
+  <td>thumb</td>
+  <th>備考</th>
+  <td>note</td>
+</tr>
+<tr>
+  <th>情報</th>
+  <td>info</td>
+  <th>データ</th>
+  <td>data</td>
+</tr>
+<tr>
+  <th>ナンバー</th>
+  <td>num</td>
+  <th>名前</th>
+  <td>name</td>
+</tr>
+<tr>
+  <th>メール</th>
+  <td>mail</td>
+  <th>電話</th>
+  <td>tel</td>
+</tr>
+<tr>
+  <th>住所</th>
+  <td>address</td>
+  <th>地図</th>
+  <td>map</td>
+</tr>
+<tr>
+  <th>料金</th>
+  <td>price</td>
+  <th>日付</th>
+  <td>date</td>
+</tr>
+<tr>
+  <th>ピックアップ</th>
+  <td>pickup</td>
+  <th>おすすめ</th>
+  <td>recommend</td>
+</tr>
+<tr>
+  <th>ソーシャルネットワーク</th>
+  <td>sns</td>
+  <th>広告</th>
+  <td>ad</td>
+</tr>
+<tr>
+  <th>読み込み</th>
+  <td>loader</td>
+  <th>警告</th>
+  <td>alert</td>
+</tr>
+</table>
+<h3>［4］ボタンやリンクとしてよく使われる名称</h3>
+<p>ページを遷移するボタンとして、［3］に接続して使うことが多い名称です。</p>
+<table class="frame">
+<tr>
+  <th>トップページ</th>
+  <td>home</td>
+  <th>続き</th>
+  <td>more</td>
+</tr>
+<tr>
+  <th>次</th>
+  <td>next</td>
+  <th>前</th>
+  <td>prev</td>
+</tr>
+<tr>
+  <th>戻る</th>
+  <td>back</td>
+  <th>ヘルプ</th>
+  <td>help</td>
+</tr>
+</table>
+<h3>状態</h3>
+<p>JavaScriptで状態を切り替えた際によく使う名称です。<br>単独で使用し、class属性に追加する形での使用が多いです。</p>
+<table class="frame">
+<tr>
+  <th>表示</th>
+  <td>show</td>
+  <th>非表示</th>
+  <td>hide</td>
+</tr>
+<tr>
+  <th>開く</th>
+  <td>open</td>
+  <th>閉じる</th>
+  <td>close</td>
+</tr>
+<tr>
+  <th>現在位置</th>
+  <td>current</td>
+  <th>実行中</th>
+  <td>active</td>
+</tr>
+</table>
+<h3>微調整用</h3>
+<p>軽微な調整をしたい場合に使うことがあります。<br>デザインを表している名称を付けるのは好ましくないので、できるだけ避けてください。</p>
+<table class="frame">
+<tr>
+  <th>ブロック</th>
+  <td>block</td>
+  <th>絶対配置</th>
+  <td>fixed</td>
+</tr>
+<tr>
+  <th>2カラム</th>
+  <td>col2</td>
+  <th>3カラム</th>
+  <td>col3</td>
+</tr>
+<tr>
+  <th>赤文字</th>
+  <td>red</td>
+  <th>中央</th>
+  <td>center</td>
+</tr>
+<tr>
+  <th>左</th>
+  <td>left</td>
+  <th>右</th>
+  <td>right</td>
+</tr>
+<tr>
+  <th>小さい</th>
+  <td>small</td>
+  <th>大きい</th>
+  <td>large</td>
+</tr>
+</table>
+<h3>組み合わせ例</h3>
+<table class="frame">
+<tr>
+  <th>組み合わせ</th>
+  <th>接続</th>
+  <th>入れ子</th>
+</tr>
+<tr>
+  <td>［0］と［+］補助</td>
+  <td>#header-inner</td>
+  <td>#header .inner</td>
+</tr>
+<tr>
+  <td>［0］と［4］</td>
+  <td>.header-logo</td>
+  <td>#header .logo</td>
+</tr>
+<tr>
+  <td>［1］と［+］補助</td>
+  <td>.news-inner</td>
+  <td>.news .inner</td>
+</tr>
+<tr>
+  <td>［1］と［2］</td>
+  <td>.news-nav</td>
+  <td>.news .nav</td>
+</tr>
+<tr>
+  <td>［1］と［2］と［3］</td>
+  <td>.news-list-txt</td>
+  <td>.news .list-txt</td>
+</tr>
+<tr>
+  <td>［1］と［2］と［4］</td>
+  <td>.news-list-date</td>
+  <td>.news .list-date　　.news-list .date</td>
+</tr>
+<tr>
+  <td>［1］と［3］</td>
+  <td>.news-btn</td>
+  <td>基本的にNG</td>
+</tr>
+<tr>
+  <td>［1］と［3］と［4］</td>
+  <td>.news-btn-more</td>
+  <td>.news .btn-more</td>
+</tr>
+<tr>
+  <td>［1］と［4］</td>
+  <td>.news-info</td>
+  <td>.news .info</td>
+</tr>
+<tr>
+  <td>［2］と［3］</td>
+  <td>.list-txt</td>
+  <td>基本的にNG</td>
+</tr>
+<tr>
+  <td>［2］と［3］と［4］</td>
+  <td>.list-btn-more</td>
+  <td>.list .btn-more</td>
+</tr>
+<tr>
+  <td>［3］と［4］</td>
+  <td>.btn-more</td>
+  <td>NG</td>
+</tr>
+</table>
+<h3>JavaScript用のセレクタ名</h3>
+<p>JavaScriptが使われている要素であることを識別するために<strong>「js-」を先頭に付ける</strong>ことを推奨します。<br>ただし、<strong>このセレクタ名ではCSSスタイリングはしません</strong>。<br>他のclass属性に追加、またはid属性として命名する形で使用します。</p>
+<table class="frame">
+<tr>
+  <th>組み合わせ</th>
+  <th>id属性</th>
+  <th>class属性</th>
+</tr>
+<tr>
+  <td>［js］と［名称］</td>
+  <td>#js-slider</td>
+  <td>.js-slider</td>
+</tr>
+</table>
+<p class="note">※JavaScriptの変数名には「 -（ハイフン）」は使えません。</p>
+</section>
+
+<!-- 05 -->
+<section class="entry" id="05">
+<h2>プロパティの記述順序</h2>
+<p>CSSプロパティの記述順については、厳密に定義されたルールは存在しません。<br>Googleの推奨するルールは「ABC順で記載する」というものですが、Mozilaの推奨するガイドラインの方が説得力があるので、こちらを参考に記述順を定めています。</p>
+<ol>
+  <li>まず要素を表示する？しない？　<strong>（display）</strong></li>
+  <li>要素をどこに配置する？　<strong>（position、float）</strong></li>
+  <li>要素のボックスモデルはどういうものになる？　<strong>（width、height、margin、padding）</strong></li>
+  <li>背景はどうなる？　<strong>（background）</strong></li>
+  <li>テキストなど前景にあるものはどうなる？　<strong>（color、font、text-align）</strong></li>
+</ol>
+<pre>
+<code>
+/* Suggested order:
+ * display
+ * list-style
+ * position
+ * float
+ * clear
+ * width
+ * height
+ * margin
+ * padding
+ * border
+ * background
+ * color
+ * font
+ * text-decoration
+ * text-align
+ * vertical-align
+ * white-space
+ * other text
+ * content
+ */
+
+&#9312;「表示・配置」に関するプロパティ
+	display
+	visibility
+	opacity
+	clip ※Deprecated
+	clip-path
+	list-style
+		list-style-type
+		list-style-position
+		list-style-image
+	position
+	top
+	right
+	bottom
+	left
+	z-index
+	float
+	clear
+	transform
+
+&#9313;「ボックスモデル」に関するプロパティ
+	width
+	min-width
+	max-width
+	height
+	min-height
+	max-height
+	margin
+		margin-top
+		margin-right
+		margin-bottom
+		margin-left
+	padding
+		padding-top
+		padding-right
+		padding-bottom
+		padding-left
+	overflow
+		overflow-x
+		overflow-y
+	border
+		border-width
+			border-top-width
+			border-right-width
+			border-bottom-width
+			border-left-width
+		border-style
+			border-top-style
+			border-right-style
+			border-bottom-style
+			border-left-style
+		border-radius
+			border-top-right-radius
+			border-top-left-radius
+			border-bottom-right-radius
+			border-bottom-left-radius
+		border-color
+			border-top-color
+			border-right-color
+			border-bottom-color
+			border-left-color
+		border-image
+			border-image-source
+			border-image-slice
+			border-image-width
+			border-image-outset
+			border-image-repeat
+	box-sizing
+	box-shadow
+
+&#9314;「背景」に関するプロパティ
+	background
+		background-image
+		background-position
+		background-size
+		background-repeat
+		background-origin
+		background-clip
+		background-attachment
+		background-color
+
+&#9315;「テキスト」に関するプロパティ
+	color
+	font
+		font-style
+		font-variant
+		font-weight
+		font-stretch
+		font-size
+		line-height
+		font-family
+	letter-spacing
+	text-overflow
+	text-decoration
+		text-decoration-style
+		text-decoration-color
+		text-decoration-line
+	text-align
+	text-indent
+	text-transform
+	vertical-align
+	white-space
+	word-break
+	word-spacing
+	word-wrap
+	overflow-wrap
+	text-shadow
+
+&#9316;「表」に関するプロパティ
+	table-layout
+	border-collapse
+	border-spacing
+	empty-cells
+	caption-side
+
+&#9317;「Flexbox」に関するプロパティ
+	flex
+		flex-grow
+		flex-shrink
+		flex-basis
+	flex-flow
+		flex-direction
+		flex-wrap
+	justify-content
+	align-content
+	align-items
+	align-self
+	order
+
+&#9318;「生成内容」に関するプロパティ
+	content
+	quotes
+	counter-increment
+	counter-reset
+
+&#9319;「ユーザーインターフェース」に関するプロパティ
+	outline
+		outline-style
+		outline-width
+		outline-color
+	cursor
+	resize
+
+&#9320;「アニメーション」に関するプロパティ
+	transition
+		transition-property
+		transition-duration
+		transition-timing-function
+		transition-delay
+	animation
+		animation-name
+		animation-duration
+		animation-timing-function
+		animation-delay
+		animation-iteration-count
+		animation-direction
+		animation-fill-mode
+		animation-play-state
+
+&#9321;「その他」に関するプロパティ
+	unicode-bidi
+	direction
+	page-break-before
+	page-break-after
+	page-break-inside
+	widows
+	orphans
+</code>
+</pre>
+</section>
+
+<!-- 06 -->
+<section class="entry" id="06">
+<h2>基本テクニック</h2>
+<h3>フォントサイズの指定</h3>
+<p>px、em、% いろいろありますが、基本は「rem」がおすすめです。<br>remは親要素ではなくルート、いわゆるhtml要素に設定されたフォントの大きさを基準にするため、調整しやすくなります。</p>
+<pre>
+<code>
+html {
+  font-size: 62.5%;　 ※10pxを基準にする
+}
+body {
+  font-size: 1.4rem;　※14pxに相当
+}
+</code>
+</pre>
+<dl>
+  <dt>［参考］CSSのフォントサイズ指定『px、em、%、rem』それぞれの違いと変換</dt>
+  <dd><a href="http://infinityforest.net/home/archives/3091" target="_blank">http://infinityforest.net/home/archives/3091</a></dd>
+</dl>
+<h3>実数値、単位の省略</h3>
+<p>些細なことですが、パフォーマンス・メンテナンス性の向上につながります。※Google推奨</p>
+<pre>
+<code>
+［例］0なら単位を省略する
+margin: 0px;　→　margin: 0;
+</code>
+</pre>
+<pre>
+<code>
+［例］1未満の場合、頭の0は省略する
+margin: 0.5em;　→　margin: .5em;
+</code>
+</pre>
+<pre>
+<code>
+［例］line-heightに単位を指定しない
+line-height: 1em;　→　line-height: 1;
+</code>
+</pre>
+<dl>
+  <dt>［参考］CSSのline-heightで単位を指定しない理由</dt>
+  <dd><a href="http://qiita.com/4cres/items/5ab4b07e6b5cdfc8f799" target="_blank">http://qiita.com/4cres/items/5ab4b07e6b5cdfc8f799</a></dd>
+</dl>
+<h3>ショートハンド</h3>
+<p>可能な限りショートハンドで記述しましょう。※Google推奨</p>
+<pre>
+<code>
+［例］marginの数値指定
+margin: 5px 10px 5px 10px;　→　margin: 5px 10px;
+</code>
+</pre>
+<dl>
+  <dt>［参考］ショートハンドプロパティ</dt>
+  <dd><a href="https://developer.mozilla.org/ja/docs/Web/CSS/Shorthand_properties" target="_blank">https://developer.mozilla.org/ja/docs/Web/CSS/Shorthand_properties</a></dd>
+</dl>
+<h3>カラーコードの省略</h3>
+<p>6桁のカラーコードは、3桁に省略できるものがあります。※Google推奨<br>しかし、ブラウザによっては省略すると正常に表示されない場合もありますので、確認の上で使用してください。</p>
+<pre>
+<code>
+［例］3桁に省略
+color: #0000ff;　→　color: #00f;
+</code>
+</pre>
+<dl>
+  <dt>［参考］CSSの色指定</dt>
+  <dd><a href="http://www.tagindex.com/stylesheet/basic/color.html" target="_blank">http://www.tagindex.com/stylesheet/basic/color.html</a></dd>
+</dl>
+<h3>clearfix</h3>
+<p>clearfixはfloatを解除するための手法です。2004年登場以来、未だに使われています。<br>clearしたい要素に「clearfix」というclass名を足すことでfloatを解除しますが、該当するセレクタ名を指定する方がソースコードはきれいになります。<br><span class="note">※floatを解除できるプロパティ（display: flow-root;）が定義されたようなので、もうじき不要になりそうです。</span></p>
+<pre>
+<code>
+.clearfix::after,
+.hoge::after {
+  display: table;
+  clear: both;
+  content: "";
+}
+</code>
+</pre>
+<p class="note">※overflow: hidden; を使う方法もありますが、印刷で影響が出たり、要素を超えた部分は非表示になりますので、確認の上で使用してください。</p>
+<dl>
+  <dt>［参考］cssのfloatを解除する方法 ～あこがれの2カラムレイアウト～</dt>
+  <dd><a href="http://pbrsk.hatenablog.com/entry/2016/02/08/000416" target="_blank">http://pbrsk.hatenablog.com/entry/2016/02/08/000416</a></dd>
+  <dt>［参考］float崩れを”clear”で解除する便利すぎる3つの方法！【CSSテクニック】</dt>
+  <dd><a href="http://60pablog.com/css-tech-float-clear/" target="_blank">http://60pablog.com/css-tech-float-clear/</a></dd>
+</dl>
+</section>
+
+<!-- 07 -->
+<section class="entry" id="07">
+<h2>非推奨事項</h2>
+<p>以下の方法は、CSSの記述テクニックとして推奨するものではありません。<br>やむを得ない場合のみ、使用を可能とします。</p>
+<h3>CSSハック</h3>
+<p>CSSハックとは、Webブラウザ間のCSSの解釈の違いを振り分けの条件とし、特定のブラウザに対しスタイルを適用または非適用とする手法です。簡単に言えば、ブラウザのバグを利用した「裏ワザ」的な方法です。<br>ブラウザによってはCSSの解釈が違い、レイアウトが崩れてしまうことがあります。その調整の解決手段がない場合には、CSSハックの使用も可能とします。<br>しかし、正しい記述方法ではありませんので、<strong>原則、使用は避けてください</strong>。<br>やむを得ず使用する場合は、どのブラウザに対するハックかを明確にしておいてください。</p>
+<pre>
+<code>
+［例］IE10以下は背景色を緑色に
+.hoge {
+  background-color: red;
+  background-color: green\9; /* IE10以下 */
+}
+</code>
+</pre>
+</section>
+
+</div>
+<!--/ ===== main  END  ===== /-->
+
+<div id="side">
+</div>
+
+</body>
+</html>

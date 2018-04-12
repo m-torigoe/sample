@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex,nofollow">
+<title>コーディング基本方針 | 株式会社プライサー コーディングルール</title>
+<link rel="stylesheet" href="css/common.css">
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script>
+$(function() {
+  $('#side').load('side.html');
+})
+</script>
+</head>
+<body>
+
+<header id="header">
+<h1>コーディング基本方針</h1>
+<p>2017/07/19 現在</p>
+</header>
+
+<!--/ ===== main START ===== /-->
+<div id="main">
+
+<section class="entry">
+<h1>はじめに</h1>
+<p>このコーディングルールは、今までの経験とインターネット等でリサーチした結果を元に作成しています。<br>定期的に見直し、情報が古いと判断した場合、改良を加えることがあります。</p>
+</section>
+
+<!-- 01 -->
+<section class="entry" id="01">
+<h2>ファイル（ディレクトリ）の種類と構造</h2>
+<p>案件によっては指定されている場合がありますので、適宜対応してください。</p>
+<table>
+<tr>
+  <th>HTML</th>
+  <td>文書型はHTML5を基準とする。<br>※文書型の選択は案件による。過去の案件はXHTMLが主流。</td>
+</tr>
+<tr>
+  <th>画像ディレクトリ<br>「/img」</th>
+  <td>HTMLファイルから参照される画像ファイル（GIF画像やJPEG画像）を格納する。<br>格納されるファイルの拡張子は「.gif」「.jpg」「.png」など。</td>
+</tr>
+<tr>
+  <th>CSSディレクトリ<br>「/css」</th>
+  <td>HTMLファイルから参照されるCSSファイルを格納する。<br>格納されるファイルの拡張子は「.css」。</td>
+</tr>
+<tr>
+  <th>JavaScriptディレクトリ<br>「/js」</th>
+  <td>HTMLファイルから参照されるJavaScriptファイルを格納する。<br>格納されるファイルの拡張子は「.js」。</td>
+</tr>
+<tr>
+  <th>インクルード<br>「/inc」</th>
+  <td>インクルードファイルを格納する。<br>格納されるファイルの拡張子は「.html」「.php」など作り方による。</td>
+</tr>
+<tr>
+  <th>Webフォント<br>「/fonts」</th>
+  <td>Webフォントファイルを格納する。<br>格納されるファイルの拡張子は「.ttf」「.woff」「.eot」など。</td>
+</tr>
+<tr>
+  <th>ドキュメント<br>「/doc」</th>
+  <td>各種ドキュメントファイルを格納する。<br>格納されるファイルの拡張子は「.doc」「.xls」「.pdf」など。</td>
+</tr>
+<tr>
+  <th>リッチコンテンツ<br>「/media」</th>
+  <td>動画ファイルや音声ファイルなどを格納する。<br>格納されるファイルの拡張子は「.swf」「.mp3」などの各種メディアファイル。</td>
+</tr>
+</table>
+</section>
+
+<!-- 02 -->
+<section class="entry" id="02">
+<h2>基本的な記述ルール</h2>
+<p>特に指定がない限り、以下のフォーマットを使用してください。</p>
+<table class="center">
+<tr>
+  <td>UTF-8</td>
+  <td>BOM無し</td>
+  <td>CR+LF</td>
+</tr>
+</table>
+<p>基本的には、<a href="https://google.github.io/styleguide/htmlcssguide.html" target="_blank">Google HTML/CSS Style Guide</a> に沿って記述します。※一部除く</p>
+<ul>
+  <li>W3Cの規格に準拠した、正しいHTML文書を記述する。</li>
+  <li>コードは小文字で記述する。（alt属性など値が文字列の場合は除く）</li>
+  <li>指定がない限り、文章中の英数字は半角を使用する。</li>
+  <li>コードのインデント（字下げ）は、タブではなく<strong>半角スペース2つ分</strong>とする。</li>
+  <li>必要に応じてコメントを入れる、ブロック要素で改行を入れるなど、ソースを読みやすくしておく。</li>
+  <li>CSSでの再現が困難な場合を除き、レイアウトを目的としたtableコーディングは行わない。</li>
+  <li>記述ミスを防ぐために、<strong>タグの省略はしない</strong>。（終了タグなど）</li>
+  <li>CSS、JavaScript、画像、サイト内リンク等のパスは<strong>ルートパス</strong>で記述する。（制作時は相対パスでも可能）</li>
+</ul>
+<dl>
+  <dt>［参考］Google HTML/CSS Style Guideを全部日本語に訳してみた【HTML編】</dt>
+  <dd><a href="http://buchineko.website/google_styleguide_html/" target="_blank">http://buchineko.website/google_styleguide_html/</a></dd>
+  <dt>［参考］Google HTML/CSS Style Guideを全部日本語に訳してみた【CSS編】</dt>
+  <dd><a href="http://buchineko.website/google_styleguide_css/" target="_blank">http://buchineko.website/google_styleguide_css/</a></dd>
+</dl>
+<h3>文字の表記（英数字・記号・特殊文字）</h3>
+<table>
+<tr>
+  <td>abcABC</td>
+  <td>アルファベット</td>
+  <td>全て半角</td>
+</tr>
+<tr>
+  <td>1234567890</td>
+  <td>数字</td>
+  <td>全て半角</td>
+</tr>
+<tr>
+  <td>I、II、III、IV</td>
+  <td>ローマ数字</td>
+  <td>半角アルファベットで置き換え</td>
+</tr>
+<tr>
+  <td>！？</td>
+  <td>感嘆符、疑問符</td>
+  <td>全角</td>
+</tr>
+<tr>
+  <td>（ ）　「 」　【 】</td>
+  <td>括弧</td>
+  <td>全角</td>
+</tr>
+<tr>
+  <td>：</td>
+  <td>コロン</td>
+  <td>全角例　本社：愛媛県<br>半角例　9:00～17:00　http://</td>
+</tr>
+<tr>
+  <td>／</td>
+  <td>スラッシュ</td>
+  <td>全角・半角</td>
+</tr>
+<tr>
+  <td>-</td>
+  <td>ハイフン</td>
+  <td>半角</td>
+</tr>
+<tr>
+  <td>&lt;</td>
+  <td>大なり不等号</td>
+  <td>&amp;lt;</td>
+</tr>
+<tr>
+  <td>&gt;</td>
+  <td>小なり不等号</td>
+  <td>&amp;gt;</td>
+</tr>
+<tr>
+  <td>&amp;</td>
+  <td>アンパサンド</td>
+  <td>&amp;amp;</td>
+</tr>
+<tr>
+  <td>&nbsp;</td>
+  <td>ノーブレークスペース</td>
+  <td>&amp;nbsp;</td>
+</tr>
+<tr>
+  <td>&reg;</td>
+  <td>登録商標</td>
+  <td>&amp;reg;</td>
+</tr>
+<tr>
+  <td>&copy;</td>
+  <td>著作権</td>
+  <td>&amp;copy;</td>
+</tr>
+<tr>
+  <td>&trade;</td>
+  <td>トレードマーク</td>
+  <td>&amp;trade;</td>
+</tr>
+<tr>
+  <td>&yen;</td>
+  <td>円</td>
+  <td>&amp;yen;</td>
+</tr>
+</table>
+</section>
+
+<!-- 03 -->
+<section class="entry" id="03">
+<h2>画像について</h2>
+<p>過度な画像の使用、不必要にファイルサイズの大きい画像の読み込みは、サーバーやブラウザに負担がかかってしまいます。<br>本文の内容を理解して、img要素での配置が相応しいかを判断し、装飾に関するものはCSSで設定するようにしましょう。<br>また、<strong>img要素で配置した画像には代替テキスト（alt属性）が必要</strong>ですが、HTML5ではalt属性に詳細な説明を記述するよう定義されています。</p>
+<ul>
+  <li>CSSで再現できるものは、可能な限りCSSで設定する。</li>
+  <li>本文には直接関係のない、背景のような装飾を目的とした画像は、CSSで設定する。</li>
+  <li>本文に関係のある（意味のある）画像は、原則img要素として配置する。</li>
+  <li>画像には、近辺のテキストに関連した、意味のある代替テキストを記述する。</li>
+  <li>意味を持たない画像の場合は、空のalt属性（alt=""）とする。</li>
+</ul>
+<pre>
+<code>
+［悪い例］&lt;img src="/img/fuji.png" alt="富士山"&gt;
+［良い例］&lt;img src="/img/fuji.png" alt="うっすらと雪化粧した富士山の写真。"&gt;
+</code>
+</pre>
+<h3>主な画像の種類</h3>
+<p>状況に応じて、最もデータサイズが軽く、きれいに書き出される形式を選択してください。</p>
+<table>
+<tr>
+  <th width="120">GIF</th>
+  <td nowrap>.gif</td>
+  <td>単色の画像に向いている ／ データ容量が小さい ／ 透過処理ができる（半透明は不可） ／ 簡単なアニメーションが作れる</td>
+</tr>
+<tr>
+  <th>JPEG</th>
+  <td nowrap>.jpg</td>
+  <td>写真のような多くの色数を扱う画像に向いている ／ 圧縮率を上げるほどデータ容量は小さく、画質が劣化する</td>
+</tr>
+<tr>
+  <th>PNG</th>
+  <td nowrap>.png</td>
+  <td>W3C推奨 ／ 単色にもフルカラーにも対応できる ／ 透過処理ができる ／ 高品質で圧縮率が高いが、フルカラーはJPEGより重くなりがち ／ Fireworksの元データもpng形式なので注意</td>
+</tr>
+<tr>
+  <th>SVG</th>
+  <td nowrap>.svg</td>
+  <td>ベクターデータなので拡大しても劣化しない ／ 写真、色や形状が複雑なものは不向き ／ Retinaディスプレイと相性がよい ／ 古いブラウザは非対応</td>
+</tr>
+</table>
+<dl>
+  <dt>［参考］PNG画像を圧縮できるサービス「TinyPNG」</dt>
+  <dd><a href="https://tinypng.com/" target="_blank">https://tinypng.com/</a></dd>
+</dl>
+</section>
+
+<!-- 04 -->
+<section class="entry" id="04">
+<h2>コメントの記述</h2>
+<p>ソースを分かりやすくするために、注意書きや記録としてコメントを利用してください。<br>不要なコメント、長すぎるコメントは控えて簡潔に書きましょう。</p>
+<h3>共通で存在するような大きなブロック</h3>
+<p>一目で見分けたいので、始まりと終わりを明確にしてください。</p>
+<pre>
+<code>
+&lt;!--/ ===== header START ===== /--&gt;
+&lt;header&gt;
+  ヘッダーのタグ
+&lt;/header&gt;
+&lt;!--/ ===== header  END  ===== /--&gt;
+</code>
+</pre>
+<pre>
+<code>
+&lt;!--/ ===== main START ===== /--&gt;
+&lt;main&gt;
+  メインのタグ
+&lt;/main&gt;
+&lt;!--/ ===== main  END  ===== /--&gt;
+</code>
+</pre>
+<pre>
+<code>
+&lt;!--/ ===== footer START ===== /--&gt;
+&lt;footer&gt;
+  フッターのタグ
+&lt;/footer&gt;
+&lt;!--/ ===== footer  END  ===== /--&gt;
+</code>
+</pre>
+<h3>各要素で見分けを付けたいもの</h3>
+<p>始まり、終わりのどちらかだけでもかまいません。状況に応じて日本語でもかまいません。</p>
+<pre>
+<code>
+&lt;!-- #hoge --&gt;
+&lt;div id="hoge"&gt;
+  タグ
+&lt;/div&gt;
+&lt;!-- /#hoge --&gt;
+</code>
+</pre>
+<pre>
+<code>
+&lt;!-- .hoge --&gt;
+&lt;div class="hoge"&gt;
+  タグ
+&lt;/div&gt;
+&lt;!-- /.hoge --&gt;
+</code>
+</pre>
+<h3>メモとして利用</h3>
+<p>メモ書きとしても利用できます。意味なく長文を記述することは避けて、簡潔に書きましょう。</p>
+<pre>
+<code>
+&lt;!-- ここにコメントを記述 --&gt;
+</code>
+</pre>
+<h3>コメントアウトについて</h3>
+<p>コメントを利用することで、一時的にタグを非表示にすることができます。<br>ブラウザ上では表示されませんが、<strong>ソースを見れば記述されている内容が分かります</strong>。<br>ユーザーに見せてはいけない内容であれば、コメントアウトではなく削除するようにしてください。</p>
+<pre>
+<code>
+&lt;!--
+&lt;p&gt;このタグは隠したい&lt;/p&gt;
+--&gt;
+</code>
+</pre>
+<p>動的ページ（プログラムによって生成されるページ）でソースとして生成したくない場合は、以下のようにコメントアウトしてください。<br><strong>動的ページの場合は、通常のコメントアウトではなくこちらを使用してください。</strong></p>
+<pre>
+<code>
+&lt;!--{*
+&lt;p&gt;このタグはソースからも隠したい&lt;/p&gt;
+*}--&gt;
+</code>
+</pre>
+</section>
+
+</div>
+<!--/ ===== main  END  ===== /-->
+
+<div id="side">
+</div>
+
+</body>
+</html>

@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex,nofollow">
+<title>ファイル命名規則 | 株式会社プライサー コーディングルール</title>
+<link rel="stylesheet" href="css/common.css">
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script>
+$(function() {
+  $('#side').load('side.html');
+})
+</script>
+</head>
+<body>
+
+<header id="header">
+<h1>ファイル命名規則</h1>
+<p>2017/07/19 現在</p>
+</header>
+
+<!--/ ===== main START ===== /-->
+<div id="main">
+
+<!-- 01 -->
+<section class="entry" id="01">
+<h2>命名規則・禁止事項</h2>
+<p>名称には、半角英数字（小文字）、「 -（ハイフン）」「 _（アンダースコア）」を使用します。</p>
+<ul>
+  <li><strong>半角（1バイト）英数字で小文字のみ</strong>を使用し、文字数は拡張子を含む<strong>半角小文字31文字以内</strong>とする。<span class="note">※注1</span></li>
+  <li>記号は「 -（ハイフン）」「 _（アンダースコア）」のみ使用する。</li>
+  <li><strong>単語の連結には「 -（ハイフン）」を使用する。</strong></li>
+  <li>必ずアルファベットから開始する。（数字から開始しない）</li>
+  <li>機種依存文字、特殊記号は使用禁止。<span class="note">※注2</span></li>
+  <li>全角スペース、半角スペースは使用しない。<span class="note">※注3</span></li>
+</ul>
+<p class="note">※注1：「日本語」「全角英数字・記号」「半角カタカナ」は使用することが出来ません。</p>
+<p class="note">※注2：「 \（エンマーク）」「 /（スラッシュ）」「 :（コロン）」「 *（アスタリスク）」「 ?（クエスチョン）」「 ”（ダブルクォーテーション）」「 &lt;（大なり不等号）」「 &gt;（小なり不等号）」「 |（パイプ）」はWindowsでファイル名に使用することが出来ません。また、上記に含まれないその他の記号についても、プログラム上で誤った処理をしてしまい、エラーを引き起こす原因と成り得るので、使用すべきではありません。</p>
+<p class="note">※注3：ファイル名にスペースを含んだ場合、ファイルを正常に処理出来なくなる可能性があります。</p>
+</section>
+
+<!-- 02 -->
+<section class="entry" id="02">
+<h2>HTMLファイル、ディレクトリ名称</h2>
+<p>HTMLファイル、ディレクトリ名はそのままサイトのURLになります。<br>URLを見ただけで何のページか判断できる、意味のある簡潔なものにしましょう。<br>ただし、プログラムで自動的に作られるURLは、以下の限りではありません。</p>
+<ul>
+  <li>ひと目で意味のわかるような、簡潔なファイル名にする。</li>
+  <li>原則として、ファイルまたはディレクトリの意味を3単語以内で記述し、出来る限り1単語で表現する。</li>
+  <li>むやみにローマ字にせず、可能な限り英単語を使用する。</li>
+  <li>キャメルケースは使用しない。</li>
+</ul>
+<p>ファイル、ディレクトリ名は可能な限り英単語を使用する。</p>
+<pre>
+<code>
+［例］新着情報
+oshirase.html　→　news.html
+</code>
+</pre>
+<p>ファイル、ディレクトリ名が2単語以上になる場合は「 -（ハイフン）」で接続する。</p>
+<pre>
+<code>
+［例］ショップ お知らせ
+shop-information.html　→　shop-info.html
+</code>
+</pre>
+<p>キャメルケースは使用しない。</p>
+<pre>
+<code>
+［例］ショップ 地図
+shopMap.html　→　shop-map.html
+</code>
+</pre>
+<p>同じような形式のページが複数個ある場合は、連番を利用して命名することも可能とする。</p>
+<pre>
+<code>
+［例］フォトギャラリー
+photo01.html、　photo01-01.html、　photo-flower01.html
+</code>
+</pre>
+<h3>単語の連結について</h3>
+<p>単語の連結には、基本的には「 -（ハイフン）」を使用します。<br>ただし、理由があれば「 _（アンダースコア）」も可能とします。</p>
+<p>細かく言えば、</p>
+<ul>
+  <li>「 -（ハイフン）」は前後の文字列を<strong>「区切り」</strong>、<strong>2つのキーワード</strong>として認識。</li>
+  <li>「 _（アンダースコア）」は前後の文字列を<strong>「結合」</strong>、<strong>1つのキーワード</strong>として認識。</li>
+</ul>
+<p>という意味合いのようですが、<strong>Googleは「 -（ハイフン）」を推奨</strong>しているため、そちらに合わせます。</p>
+<h3>画像フォルダの分類</h3>
+<p>画像フォルダ（「/img」）以下のフォルダ分けは制作者の判断に任せますが、最低限、全ページ共通で使用する画像を格納する「common」フォルダだけは分類するようにしてください。</p>
+<pre>
+<code>
+img
+　├ common　※必須
+　　　├ ttl-logo.png
+　　　├ nav-company.png
+　　　└ nav-contact.png
+　├ company
+　└ contact
+</code>
+</pre>
+</section>
+
+<!-- 03 -->
+<section class="entry" id="03">
+<h2>画像ファイル名称</h2>
+<p>画像のファイル名は、どんな用途でどこに使われているものか、ファイル名を見れば察しが付くような名前にします。<br>すぐに何の画像か判断がつくように、最初の3文字で分類します。<br>その後ろに「 -（ハイフン）」でつなぐ形で、何の画像か判断がつく名称を付けていきます。</p>
+<h3>画像の種類（3文字略称）</h3>
+<table>
+<tr>
+  <th>種類（3文字略称）</th>
+  <th>用途</th>
+  <th>例</th>
+</tr>
+<tr>
+  <td>ttl</td>
+  <td>見出し画像で使用。（title）</td>
+  <td>ttl-xxxxx.png</td>
+</tr>
+<tr>
+  <td>nav</td>
+  <td>ナビゲーション画像で使用。（navigation）</td>
+  <td>nav-xxxxx.png</td>
+</tr>
+<tr>
+  <td>bac</td>
+  <td>背景画像で使用。（background）</td>
+  <td>bac-xxxxx.png</td>
+</tr>
+<tr>
+  <td>bnr</td>
+  <td>バナー画像で使用。（banner）</td>
+  <td>bnr-xxxxx.png</td>
+</tr>
+<tr>
+  <td>btn</td>
+  <td>ボタン画像で使用。（button）</td>
+  <td>btn-xxxxx.png</td>
+</tr>
+<tr>
+  <td>ico</td>
+  <td>アイコン画像で使用。（icon）</td>
+  <td>ico-xxxxx.png</td>
+</tr>
+<tr>
+  <td>lin</td>
+  <td>境界線・罫線画像で使用。（line）</td>
+  <td>lin-xxxxx.png</td>
+</tr>
+<tr>
+  <td>txt</td>
+  <td>テキスト画像で使用。（text）</td>
+  <td>txt-xxxxx.png</td>
+</tr>
+<tr>
+  <td>img</td>
+  <td>イメージ画像で使用。（image）</td>
+  <td>img-xxxxx.jpg</td>
+</tr>
+<tr>
+  <td>fig</td>
+  <td>図表で使用。（figure）</td>
+  <td>fig-xxxxx.png</td>
+</tr>
+<tr>
+  <td>ogp</td>
+  <td>OGP用の画像で使用。（OGP）</td>
+  <td>ogp-xxxxx.png</td>
+</tr>
+</table>
+<h3>ファイル名の例</h3>
+<table class="center">
+<tr>
+  <th>種類</th>
+  <td rowspan="4">-</td>
+  <th>画像名称1</th>
+  <th rowspan="4">-</th>
+  <th>画像名称2</th>
+  <th>数字</th>
+  <th>拡張子</th>
+  <th>ファイル名</th>
+</tr>
+<tr>
+  <td>ttl</td>
+  <td>news</td>
+  <td>&nbsp;</td>
+  <td>&nbsp;</td>
+  <td rowspan="3">.png<br>.jpg<br>.gif<br>など</td>
+  <td>ttl-news.png</td>
+</tr>
+<tr>
+  <td>ttl</td>
+  <td>news</td>
+  <td>shop</td>
+  <td>&nbsp;</td>
+  <td>ttl-news-shop.png</td>
+</tr>
+<tr>
+  <td>ttl</td>
+  <td>news</td>
+  <td>thumb</td>
+  <td>01</td>
+  <td>ttl-news-thumb01.png</td>
+</tr>
+</table>
+<ul>
+  <li>更新性が悪くなるため、画像の名称にはhtml要素を使わない。（悪い例：ttl-h1.png）</li>
+  <li>分類が細かくなる場合は、「 -（ハイフン）」で分類名を増やしてもよいが、ファイル名が長くなりすぎないように気を付ける。</li>
+  <li>同じ項目の画像が複数になる場合などは、数字（連番2桁 または 3桁）を付けてよい。その際、01 または 001から始める。</li>
+  <li>サムネイル画像の場合は、最後に「thumb」（＋連番）を付ける。</li>
+</ul>
+</section>
+
+</div>
+<!--/ ===== main  END  ===== /-->
+
+<div id="side">
+</div>
+
+</body>
+</html>

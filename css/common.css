@@ -1,0 +1,342 @@
+@charset "utf-8";
+
+/* ============================================
+
+   共通 - common.css                            */
+
+/* --------------------------------------------
+   default
+----------------------------------------------- */
+
+/* -----[ reset ]----- */
+
+html, body, div, span,
+article, section, nav, header, footer, main, aside,
+h1, h2, h3, h4, h5, h6,
+form, fieldset, legend, label,
+dl, dt, dd, ol, ul, li, p,
+table, caption, tbody, thead, tfoot, tr, th, td,
+a, strong, em, mark, b, small, i, img,
+object, figure, figcaption, canvas, audio, video, iframe {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  font-size: 100%;
+  vertical-align: baseline;
+  outline: 0;
+}
+article, section, nav, header, footer, main, aside,
+figure, figcaption {
+  display: block;
+}
+html, body, div, span,
+article, section, nav, header, footer, main, aside {
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* -----[ common ]----- */
+
+html {
+  font-size: 62.5%;
+}
+body {
+  height: 100%;
+  color: #333;
+  font-size: 1.4rem;
+  line-height: 2;
+  font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', 'ヒラギノ角ゴ ProN W3', Hiragino Kaku Gothic ProN, Arial, 'メイリオ', Meiryo, sans-serif;
+  letter-spacing: .05em;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-size-adjust: 100%;
+}
+ul, ol {
+  margin-left: 1.5em;
+}
+table {
+  width: 100%;
+}
+th, td {
+  padding: 1em;
+  border: 1px solid #eaeaea;
+  word-break: break-all;
+}
+th {
+  font-weight: normal;
+  text-align: left;
+}
+img {
+  max-width: 100%;
+  height: auto;
+  vertical-align: bottom;
+  -ms-interpolation-mode: bicubic;
+}
+a {
+  color: #009cbc;
+}
+a:hover {
+  text-decoration: none;
+}
+
+/* -----[ layout ]----- */
+
+html {
+  height: 100%;
+}
+body {
+  position: relative;
+  padding: 4em 300px 4em 4em;
+  background-color: #f8f8f8;
+}
+#header {
+  padding-bottom: 3em;
+}
+#header h1 {
+  font-size: 2.6rem;
+}
+#side {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 250px;
+  height: 100%;
+  padding: 1em 2em;
+  border-left: 1px solid #eaeaea;
+  background-color: #fff;
+}
+#side dl {
+  padding-bottom: 2em;
+}
+#side dt {
+  position: relative;
+  margin: 2em 0 1em;
+  padding: 2em 5px 0 0;
+  cursor: pointer;
+}
+#side dt::after {
+  position: absolute;
+  top: 3.3em;
+  right: -1em;
+  width: 11px;
+  height: 11px;
+  color: #cdcdcd;
+  font-size: 1.1rem;
+  line-height: 1;
+  content: "＋";
+}
+#side dt.close::after {
+  content: "－";
+}
+#side dt:first-child {
+  margin-top: 0;
+}
+#side dd+dt {
+  border-top: 1px solid #eaeaea;
+}
+#side dd {
+  display: none;
+}
+#side ul,
+#side ol {
+  list-style: none;
+  margin-left: inherit;
+}
+#side ol {
+  counter-reset: li;
+}
+#side li+li {
+  margin-top: .5em;
+}
+#side ol > li {
+  position: relative;
+  padding-left: 1.7em;
+  line-height: 1.6;
+}
+#side ol > li::before {
+  display: block;
+  position: absolute;
+  top: .2em;
+  left: 0;
+  width: 18px;
+  height: 18px;
+  border-radius: 50px;
+  background-color: #b8d318;
+  color: #fff;
+  font-size: 1.1rem;
+  line-height: 1.8;
+  letter-spacing: normal;
+  text-align: center;
+  content: counter(li) "";
+  counter-increment: li;
+}
+#btn-top {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  width: 60px;
+  height: 60px;
+  border-radius: 200px;
+  background-color: #b8d318;
+  color: #fff;
+  line-height: 60px;
+  text-align: center;
+}
+#btn-top a {
+  display: block;
+  color: #fff;
+  text-decoration: none;
+}
+
+/* --------------------------------------------
+   top
+----------------------------------------------- */
+
+#top {
+  display: table;
+  width: 100%;
+  height: 100%;
+}
+#top-inner {
+  display: table-cell;
+  vertical-align: middle;
+}
+#top header {
+  line-height: 1.4;
+  text-align: center;
+}
+#top h1 {
+  font-size: 2.0rem;
+}
+#top ul {
+  padding: 5em 2em;
+  font-size: 1.2rem;
+}
+.logo {
+  width: 180px;
+  margin: 0 auto 3em;
+}
+.ver {
+  margin-bottom: 1em;
+  font-weight: bold;
+  font-size: 1.8rem;
+}
+
+@media screen and (min-width: 1001px) {
+  #top ul {
+    padding: 5em 10em;
+  }
+}
+
+/* --------------------------------------------
+   main
+----------------------------------------------- */
+
+#main {
+  counter-reset: chapter;
+}
+.entry {
+  margin-bottom: 4em;
+  padding: 2em 2em 3em;
+  border: 1px solid #eaeaea;
+  background-color: #fff;
+}
+.entry h1 {
+  margin: .5em 0 -.5em;
+  font-size: 1.8rem;
+}
+.entry h2 {
+  position: relative;
+  margin-bottom: 1.75em;
+  padding: 0 0 .7em 1.4em;
+  border-bottom: 1px solid #eaeaea;
+  font-size: 2.0rem;
+  counter-reset: sub-chapter;
+}
+.entry h2::before {
+  display: block;
+  position: absolute;
+  top: .45em;
+  left: -.2em;
+  width: 24px;
+  height: 24px;
+  border-radius: 50px;
+  background-color: #b8d318;
+  color: #fff;
+  font-size: 1.6rem;
+  line-height: 1.6;
+  letter-spacing: normal;
+  text-align: center;
+  content: counter(chapter);
+  counter-increment: chapter;
+}
+.entry h3 {
+  margin: 3em 0 2em;
+  padding-left: .7em;
+  border-left: 2px solid #b8d318;
+  font-size: 1.7rem;
+}
+.entry ol,
+.entry ul,
+.entry dl,
+.entry table,
+.entry p,
+.entry pre {
+  margin-top: 2em;
+}
+.entry dt::before {
+  content: "・";
+}
+.entry dd+dt {
+  margin-top: .5em;
+}
+.entry dd {
+  margin-left: 1em;
+}
+.entry pre {
+  padding: 0 2em;
+  overflow: auto;
+  border-radius: 5px;
+  background-color: #444;
+  color: #ddd;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+.entry code {
+  font-size: 1.3rem;
+}
+.entry strong {
+  color: #f96d37;
+  background-color: #fffabb;
+  font-weight: normal;
+}
+
+/* 備考 */
+.note {
+  color: #888;
+  font-size: 1.1rem;
+  line-height: 1.6;
+}
+
+/* 表 */
+.center,
+.center th,
+.center td {
+  text-align: center;
+  vertical-align: middle;
+}
+.frame {
+  font-size: 1.2rem;
+  line-height: 1.4;
+  table-layout: fixed;
+}
+.frame th {
+  background-color: #f8f8f8;
+}
