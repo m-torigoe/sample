@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex,nofollow">
+<title>基本テンプレート | 株式会社プライサー コーディングルール</title>
+<link rel="stylesheet" href="css/common.css">
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script>
+$(function() {
+  $('#side').load('side.html');
+})
+</script>
+</head>
+<body>
+
+<header id="header">
+<h1>基本テンプレート</h1>
+<p>2017/07/19 現在</p>
+</header>
+
+<!--/ ===== main START ===== /-->
+<div id="main">
+
+<!-- 01 -->
+<section class="entry" id="01">
+<h2>HTML5</h2>
+<p>HTML5でコーディング作業を開始するための、基本的なソースコードのサンプルです。コピーしてご利用いただけます。</p>
+<pre>
+<code>
+&lt;!DOCTYPE html&gt;
+&lt;html lang="ja"&gt;
+&lt;head&gt;
+&lt;meta charset="utf-8"&gt;
+&lt;meta http-equiv="X-UA-Compatible" content="IE=edge"&gt;
+&lt;meta name="viewport" content="width=device-width, initial-scale=1"&gt;
+&lt;meta name="format-detection" content="telephone=no"&gt;
+
+&lt;title&gt;ページタイトル | サイトタイトル&lt;/title&gt;
+&lt;meta name="description" content="ページ概要"&gt;
+&lt;meta property="og:title" content="ページタイトル | サイトタイトル"&gt;
+&lt;meta property="og:type" content="article"&gt;
+&lt;meta property="og:image" content="http://www.xxxxxx.com/img/xxxxxx.png"&gt;
+&lt;meta property="og:url" content="http://www.xxxxxx.com/xxxxxx/"&gt;
+&lt;meta property="og:site_name" content="サイトタイトル"&gt;
+&lt;meta property="og:description" content="ページ概要"&gt;
+
+&lt;!-- common --&gt;
+&lt;link rel="stylesheet" href="/css/common.css"&gt;
+&lt;script src="//ajax.googleapis.com/ajax/libs/jquery/バージョン/jquery.min.js"&gt;&lt;/script&gt;
+&lt;script src="/js/common.js"&gt;&lt;/script&gt;
+
+&lt;!-- css --&gt;
+&lt;link rel="stylesheet" href="/css/xxxxxx.css"&gt;
+
+&lt;!-- js --&gt;
+&lt;script src="/js/xxxxxx.js"&gt;&lt;/script&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+
+&lt;!--/ ===== header START ===== /--&gt;
+&lt;header&gt;
+  &lt;h1&gt;&lt;a href="/"&gt;サイトタイトル&lt;/a&gt;&lt;/h1&gt;
+  &lt;nav&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href="#"&gt;グローバルナビ&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href="#"&gt;グローバルナビ&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/nav&gt;
+&lt;/header&gt;
+&lt;!--/ ===== header  END  ===== /--&gt;
+
+&lt;!--/ ===== main START ===== /--&gt;
+&lt;main role="main"&gt;
+
+  &lt;!-- article --&gt;
+  &lt;article&gt;
+    &lt;h2&gt;食べ物の種類&lt;/h2&gt;
+
+    &lt;section&gt;
+      &lt;h3&gt;野菜&lt;/h3&gt;
+      &lt;p&gt;にんじん&lt;/p&gt;
+    &lt;/section&gt;
+
+    &lt;section&gt;
+      &lt;h3&gt;果物&lt;/h3&gt;
+      &lt;p&gt;りんご&lt;/p&gt;
+    &lt;/section&gt;
+
+  &lt;/article&gt;
+  &lt;!-- /article --&gt;
+
+&lt;/main&gt;
+&lt;!--/ ===== main  END  ===== /--&gt;
+
+&lt;aside&gt;
+  &lt;h2&gt;補足&lt;/h2&gt;
+  &lt;p&gt;スイカは果実的野菜&lt;/p&gt;
+&lt;/aside&gt;
+
+&lt;!--/ ===== footer START ===== /--&gt;
+&lt;footer&gt;
+  &lt;p&gt;&lt;small&gt;&copy; 2017 著作権者&lt;/small&gt;&lt;/p&gt;
+&lt;/footer&gt;
+&lt;!--/ ===== footer  END  ===== /--&gt;
+
+&lt;/body&gt;
+
+&lt;/html&gt;
+</code>
+</pre>
+</section>
+
+<!-- 02 -->
+<section class="entry" id="02">
+<h2>CSS（common.css）</h2>
+<p>CSS3でコーディング作業を開始するための、基本的なコードのサンプルです。コピーしてご利用いただけます。</p>
+<pre>
+<code>
+@charset "utf-8";
+
+/* ============================================
+
+   共通 - common.css                            */
+
+/* --------------------------------------------
+   default
+----------------------------------------------- */
+
+/* -----[ reset ]----- */
+
+html, body, div, span,
+article, section, nav, header, footer, main, aside,
+h1, h2, h3, h4, h5, h6,
+form, fieldset, legend, label,
+dl, dt, dd, ol, ul, li, p,
+table, caption, tbody, thead, tfoot, tr, th, td,
+a, strong, em, mark, b, small, i, img,
+object, figure, figcaption, canvas, audio, video, iframe {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  font-size: 100%;
+  vertical-align: baseline;
+  outline: 0;
+}
+article, section, nav, header, footer, main, aside,
+figure, figcaption {
+  display: block;
+}
+html, body, div, span,
+article, section, nav, header, footer, main, aside {
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* -----[ common ]----- */
+
+html {
+  font-size: 62.5%;
+}
+body {
+  font-size: 1.4rem;
+}
+
+/* --------------------------------------------
+   header
+----------------------------------------------- */
+
+#header {
+  background-color: #fff;
+}
+
+@media screen and (max-width: 680px) {
+  #header {
+    background-color: #000;
+  }
+}
+
+/* --------------------------------------------
+   footer
+----------------------------------------------- */
+
+#footer {
+  background-color: #fff;
+}
+
+/* --------------------------------------------
+   etc
+----------------------------------------------- */
+
+.hide {
+  display: none;
+}
+
+/* -----[ clearfix ]----- */
+
+.clearfix::after {
+  display: table;
+  clear: both;
+  content: "";
+}
+
+/* -----[ animation ]----- */
+
+a:hover {
+  -webkit-transition: .3s ease;
+          transition: .3s ease;
+}
+
+</code>
+</pre>
+</section>
+
+<!-- 03 -->
+<section class="entry" id="03">
+<h2>JavaScript</h2>
+<p>JavaScriptやjQueryを利用する場合は、ユーザビリティやアクセシビリティに配慮し、JavaScriptの利用できない環境下でも情報に不足が出ないように考慮しましょう。</p>
+<h3>jQuery</h3>
+<p>読み込むjQueryのバージョンは、使用するプラグインの対応状況により変更してください。<br>特に理由がなければ、GoogleのCDNを利用してください。</p>
+<pre>
+<code>
+&lt;script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"&gt;&lt;/script&gt;
+&lt;script src="//ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"&gt;&lt;/script&gt;
+&lt;script src="//ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"&gt;&lt;/script&gt;　※最新
+</code>
+</pre>
+<dl>
+  <dt>［参考］Google Hosted Libraries - jQuery</dt>
+  <dd><a href="https://developers.google.com/speed/libraries/#jquery" target="_blank">https://developers.google.com/speed/libraries/#jquery</a></dd>
+  <dt>［参考］jQueryを使うなら知っておきたい基礎知識</dt>
+  <dd><a href="http://satoyan419.com/basic-knowledge-of-jquery/" target="_blank">http://satoyan419.com/basic-knowledge-of-jquery/</a></dd>
+  <dt>［参考］jQuery1.X系と2.X系の違いと3.X系の登場</dt>
+  <dd><a href="http://www.attend.jp/html_170515" target="_blank">http://www.attend.jp/html_170515</a></dd>
+</dl>
+<h3>使用頻度の高いプラグイン</h3>
+<table class="frame">
+<tr>
+  <th>slick</th>
+  <td>スライダー</td>
+  <td><a href="http://kenwheeler.github.io/slick/" target="_blank">http://kenwheeler.github.io/slick/</a></td>
+</tr>
+<tr>
+  <th>Colorbox</th>
+  <td>モーダルウィンドウ</td>
+  <td><a href="http://www.jacklmoore.com/colorbox/" target="_blank">http://www.jacklmoore.com/colorbox/</a></td>
+</tr>
+</table>
+</section>
+
+</div>
+<!--/ ===== main  END  ===== /-->
+
+<div id="side">
+</div>
+
+</body>
+</html>
